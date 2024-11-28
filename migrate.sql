@@ -18,3 +18,4 @@ CREATE TABLE items (
 INSERT INTO `items` ( `item_name`, `item_price`, `item_text`, `category_id`, `perform_day` , `stop_flg`) VALUES
 ('商品名', 1000, 'これは説明です。', 1 , '2024年12月12日', 0);
 
+---
