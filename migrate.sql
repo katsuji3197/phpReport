@@ -1,20 +1,20 @@
+--自分の学籍番号にする
+CREATE DATABASE db1204812;
+USE db1204812;
 
--- テーブル作成
-CREATE TABLE webapp09 (
- id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
- last_name VARCHAR(50),
- first_name VARCHAR(50),
- login_id VARCHAR(50),
- login_pass VARCHAR(50),
- age TINYINT UNSIGNED,
- PRIMARY KEY(id)
+--テーブル作成
+CREATE TABLE items (
+ item_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+ item_name VARCHAR(50) NOT NULL,
+ item_price MEDIUMINT UNSIGNED NOT NULL,
+ item_text TEXT,
+ category_id SMALLINT UNSIGNED NOT NULL,
+ perform_day VARCHAR(50),
+ stop_flg TINYINT UNSIGNED NOT NULL,
+ PRIMARY KEY(item_id)
 );
 
 -- データ挿入
-INSERT INTO `webapp09` (`id`, `last_name`, `first_name`, `login_id`, `login_pass`, `age`) VALUES
-(1, '田中', '一郎', 'tanaka',  '1111', 20),
-(2, '山田', '二郎', 'yamada',  '2222', 18),
-(3, '林',   '三郎', 'hayashi', '3333', 35),
-(4, '鈴木', '四郎', 'suzuki',  '4444', 15),
-(5, '佐藤', '五郎', 'sato',    '5555', 28);
+INSERT INTO `items` ( `item_name`, `item_price`, `item_text`, `category_id`, `perform_day` , `stop_flg`) VALUES
+('商品名', 1000, 'これは説明です。', 1 , '2024年12月12日', 0);
 
