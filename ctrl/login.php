@@ -66,7 +66,7 @@
         $_SESSION['login_pass'] = $sLoginPass;
 
         //トップページへ遷移
-        header("location: top.php");
+        header("location: index.php");
         exit();
     }
     //ログインチェックNGで何か入力されているとき
