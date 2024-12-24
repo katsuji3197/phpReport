@@ -21,16 +21,8 @@
     $sLoginPass = isset($_SESSION['login_pass']) ? $_SESSION['login_pass'] : "";
 
     //商品ID
-    $nItemId = isset($_POST['item_id']) ? $_POST['item_id'] : "";
+    $nItemId = isset($_GET['item_id']) ? $_GET['item_id'] : "";
 
-    //商品数量
-    $nItemNum = isset($_POST['item_num']) ? $_POST['item_num'] : "";
-
-    //（検索用）商品名
-    $sKeyword = isset($_POST['keyword']) ? $_POST['keyword'] : "";
-
-    //（検索用）カテゴリID
-    $nCateId = isset($_POST['category_id']) ? $_POST['category_id'] : "";
 
 //**************************************************
 // ログインチェック処理
@@ -45,10 +37,19 @@
     }
 
 //**************************************************
+// 検索処理
+//**************************************************
+    //商品詳細を取得
+    $arrItem = selectItemDetail($nItemId);
+
+//**************************************************
 // カートに入れる処理
 //**************************************************
     //メッセージ用の変数
     $resultMsg = "";
+
+    //数量を取得
+    $nItemNum = isset($_POST['item_num']) ? intval($_POST['item_num']) : 0;
 
     //商品追加（商品IDがあって、数量が1つ以上のとき）
     if($nItemId != "" && $nItemNum > 0){
@@ -64,14 +65,6 @@
         }
     }
 
-//**************************************************
-// 検索処理
-//**************************************************
-    //商品一覧を取得
-    $arrItem = selectItem($sKeyword, $nCateId);
-
-    //カテゴリを取得
-    $arrCategory = getCategory();
 
 //**************************************************
 // カート内の件数を取得
@@ -84,11 +77,10 @@
         $cartCnt = "";
     }
 
-
 //**************************************************
 // HTMLを出力
 //**************************************************
     //画面へ表示
-    require_once('../view/index.html');
+    require_once('../view/detail.html');
 
 ?>
