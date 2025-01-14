@@ -1,0 +1,43 @@
+<?php
+  $isAdmin = isset($isAdmin) ? $isAdmin : false;
+  $loginOk = isset($loginOk) ? $loginOk : false;
+  $userName = isset($userName) ? $userName : '';
+?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+  <meta charset="utf-8">
+  <link href="../common/css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="../common/css/main.css" rel="stylesheet" type="text/css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <?php if ($isAdmin === true && $loginOk === true) { ?>
+  <div class="fixed w-full top-0 z-50">
+    <div class="w-full bg-neutral-100 py-4 px-4 flex justify-between items-center shadow-md">
+      <p class="text-neutral-700 text-xl">ショップ名</p>
+      <div class="flex gap-4 items-center">
+        <div class="text-end">ようこそ！ <?= $userName ?> 様</div>
+        <div class="flex items-center gap-4">
+          <div class="bg-neutral-800 hover:bg-neutral-500 duration-300 rounded-lg h-8 flex items-center">
+            <a href="logout.php" class="text-white px-6">ログアウト</a>
+          </div>
+          <div class="bg-neutral-800 hover:bg-neutral-500 duration-300 rounded-lg h-8 flex items-center">
+            <a href="index.php" class="text-white px-6">ユーザー画面</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-screen h-screen flex flex-col gap-8 items-center justify-center">
+    <a href="adm_member.php" class="p-6 text-2xl shadow-lg bg-neutral-100 rounded-lg hover:bg-neutral-300 duration-300">会員一覧</a>
+    <a href="adm_item.php" class="p-6 text-2xl shadow-lg bg-neutral-100 rounded-lg hover:bg-neutral-300 duration-300">商品一覧</a>
+  </div>
+  <?php } else { ?>
+  <div class="w-screen h-screen flex flex-col gap-4 items-center justify-center">
+    <p>このページへのアクセス権がありません。</p>
+    <a class="text-blue-500 hover:text-blue-300" href="index.php">トップページに戻る</a>
+  </div>
+  <?php } ?>
+</body>
+</html>

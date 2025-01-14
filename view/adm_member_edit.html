@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>会員情報編集</title>
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen flex-col">
+    <a class="text-blue-500 hover:text-blue-300 duration-300 pb-16" href="adm_member.php">アカウント管理に戻る</a>
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+        <h1 class="text-2xl font-bold mb-6 text-center">会員情報編集</h1>
+        <?php if (!empty($errorMsg)) { ?>
+            <p class="text-red-500"><?= $errorMsg ?></p>
+        <?php } ?>
+        <form action="adm_member_edit.php" method="post" class="space-y-4">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+            <div>
+                <label for="full_name" class="block text-sm font-medium text-gray-700">氏名:</label>
+                <input type="text" id="full_name" name="full_name" value="<?= $user['full_name'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="postal_code" class="block text-sm font-medium text-gray-700">郵便番号:</label>
+                <input type="text" id="postal_code" name="postal_code" value="<?= $user['postal_code'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="address" class="block text-sm font-medium text-gray-700">住所:</label>
+                <input type="text" id="address" name="address" value="<?= $user['address'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="phone_number" class="block text-sm font-medium text-gray-700">電話番号:</label>
+                <input type="text" id="phone_number" name="phone_number" value="<?= $user['phone_number'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス:</label>
+                <input type="email" id="email" name="email" value="<?= $user['email'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">パスワード（変更する場合のみ入力）:</label>
+                <input type="password" id="password" name="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="is_admin" class="block text-sm font-medium text-gray-700">管理者権限:</label>
+                <?php if ($user['id'] == 1) { ?>
+                    <p class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100"><?= $user['is_admin'] == 1 ? '管理者' : '一般ユーザー' ?></p>
+                    <input type="hidden" name="is_admin" value="<?= $user['is_admin'] ?>">
+                <?php } else { ?>
+                    <select id="is_admin" name="is_admin" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="0" <?= $user['is_admin'] == 0 ? 'selected' : '' ?>>一般ユーザー</option>
+                        <option value="1" <?= $user['is_admin'] == 1 ? 'selected' : '' ?>>管理者</option>
+                    </select>
+                <?php } ?>
+            </div>
+            <div>
+                <input type="submit" value="更新" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

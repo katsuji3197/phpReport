@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>商品編集</title>
+    <link rel="stylesheet" href="../common/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen flex-col">
+    <a class="text-blue-500 hover:text-blue-300 duration-300 pb-16" href="adm_item.php">商品管理に戻る</a>
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+        <h1 class="text-2xl font-bold mb-6 text-center">商品編集</h1>
+        <?php if (!empty($errorMsg)) { ?>
+            <p class="text-red-500"><?= $errorMsg ?></p>
+        <?php } ?>
+        <form action="adm_item_edit.php" method="post" class="space-y-4">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="item_id" value="<?= $item['item_id'] ?>">
+            <div>
+                <label for="item_name" class="block text-sm font-medium text-gray-700">商品名:</label>
+                <input type="text" id="item_name" name="item_name" value="<?= $item['item_name'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="item_price" class="block text-sm font-medium text-gray-700">価格:</label>
+                <input type="text" id="item_price" name="item_price" value="<?= $item['item_price'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="item_stock" class="block text-sm font-medium text-gray-700">在庫数:</label>
+                <input type="number" id="item_stock" name="item_stock" value="<?= $item['item_stock'] ?>" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="item_exp" class="block text-sm font-medium text-gray-700">説明:</label>
+                <textarea id="item_exp" name="item_exp" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"><?= $item['item_exp'] ?></textarea>
+            </div>
+            <div>
+                <label for="category_id" class="block text-sm font-medium text-gray-700">カテゴリ:</label>
+                <select id="category_id" name="category_id" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <?php foreach ($arrCategory as $category) { ?>
+                        <option value="<?= $category['category_id'] ?>" <?= $item['category_id'] == $category['category_id'] ? 'selected' : '' ?>><?= $category['category_name'] ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div>
+                <label for="stop_flg" class="block text-sm font-medium text-gray-700">販売状況:</label>
+                <select id="stop_flg" name="stop_flg" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="0" <?= $item['stop_flg'] == 0 ? 'selected' : '' ?>>販売中</option>
+                    <option value="1" <?= $item['stop_flg'] == 1 ? 'selected' : '' ?>>販売停止</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="編集" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
