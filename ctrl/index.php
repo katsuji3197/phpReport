@@ -42,6 +42,7 @@
     if($loginOk === true){
         $userId   = getUserId($sLoginId, $sLoginPass);
         $userName = getUserName($sLoginId, $sLoginPass);
+        $isAdmin  = isAdmin($sLoginId, $sLoginPass); // 管理者かどうかを判断
     }
 
 //**************************************************

@@ -1,19 +1,18 @@
 
--- 各種テーブルの削除
-DROP TABLE IF EXISTS webapp09;
-DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS cart;
-DROP TABLE IF EXISTS orders;
+-- データベースの作成
+CREATE DATABASE db1204812;
+USE db1204812;
 
 -- 会員テーブル作成
-CREATE TABLE webapp09 (
+CREATE TABLE user (
  id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
- last_name VARCHAR(50),
- first_name VARCHAR(50),
- login_id VARCHAR(50),
- login_pass VARCHAR(50),
- age TINYINT UNSIGNED,
+ full_name VARCHAR(100) NOT NULL,
+ postal_code VARCHAR(20),
+ address VARCHAR(255),
+ phone_number VARCHAR(20),
+ email VARCHAR(100) UNIQUE NOT NULL,
+ password VARCHAR(255) NOT NULL,
+ is_admin BOOLEAN NOT NULL,
  PRIMARY KEY(id)
 );
 
@@ -29,6 +28,7 @@ CREATE TABLE item (
     `item_price` MEDIUMINT UNSIGNED COMMENT '商品価格',
     `item_stock` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '商品在庫',
     `category_id` TINYINT UNSIGNED COMMENT '商品カテゴリ',
+    `stop_flg` TINYINT UNSIGNED NOT NULL, 
     PRIMARY KEY (item_id)
 );
 
@@ -41,30 +41,30 @@ CREATE TABLE category (
 );
 
 -- 会員データ挿入
-INSERT INTO `webapp09` (`id`, `last_name`, `first_name`, `login_id`, `login_pass`, `age`) VALUES
-(1, '田中', '一郎', 'tanaka',  '1111', 20),
-(2, '山田', '二郎', 'yamada',  '2222', 18),
-(3, '林',   '三郎', 'hayashi', '3333', 35),
-(4, '鈴木', '四郎', 'suzuki',  '4444', 15),
-(5, '佐藤', '五郎', 'sato',    '5555', 28);
+INSERT INTO `user` (`id`, `full_name`, `postal_code`, `address`, `phone_number`, `email`, `password`, `is_admin`) VALUES
+(1, '管理 太郎', '123-4567', '東京都新宿区', '090-1234-5678', 'admin', 'kanri', true),
+(2, '山田 二郎', '234-5678', '大阪府大阪市', '080-2345-6789', 'yamada@example.com', '2222', false),
+(3, '林 三郎', '345-6789', '福岡県福岡市', '070-3456-7890', 'hayashi@example.com', '3333', false),
+(4, '鈴木 四郎', '456-7890', '北海道札幌市', '060-4567-8901', 'suzuki@example.com', '4444', false),
+(5, '佐藤 五郎', '567-8901', '愛知県名古屋市', '050-5678-9012', 'sato@example.com', '5555', false);
 
 -- 商品データ
-INSERT INTO item (item_id, item_name, perform_date, perform_timeitem_exp, seat, item_price, item_stock, category_id) VALUES (1, '半袖シャツ（白）','2025年2月25日','10:00 ~ 15:00','A列2席' 'ホワイトの半袖のシャツです。', 1100, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (2, '半袖シャツ（赤）', 'レッドの半袖のシャツです。', 1200, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (3, '半袖シャツ（橙）', 'オレンジの半袖のシャツです。', 1300, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (4, '半袖シャツ（黄）', 'イエローの半袖のシャツです。', 1400, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (5, '半袖シャツ（緑）', 'グリーンの半袖のシャツです。', 1500, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (6, '半袖シャツ（青）', 'ブルーの半袖のシャツです。', 1600, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (7, '半袖シャツ（桃）', 'ピンクの半袖のシャツです。', 1700, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (8, '半袖シャツ（灰）', 'グレーの半袖のシャツです。', 1800, 10, 1);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (9, '長袖シャツ（白）', 'ホワイトの長袖のシャツです。', 2100, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (10, '長袖シャツ（赤）', 'レッドの長袖のシャツです。', 2200, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (11, '長袖シャツ（橙）', 'オレンジの長袖のシャツです。', 2300, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (12, '長袖シャツ（黄）', 'イエローの長袖のシャツです。', 2400, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (13, '長袖シャツ（緑）', 'グリーンの長袖のシャツです。', 2500, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (14, '長袖シャツ（青）', 'ブルーの長袖のシャツです。', 2600, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (15, '長袖シャツ（桃）', 'ピンクの長袖のシャツです。', 2700, 10, 2);
-INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id) VALUES (16, '長袖シャツ（灰）', 'グレーの長袖のシャツです。', 2800, 10, 2);
+INSERT INTO item (item_id, item_name, perform_date, perform_time, seat, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (1, '半袖シャツ（白）', '2025年2月25日', '10:00 ~ 15:00', 'A列2席', 'ホワイトの半袖のシャツです。', 1100, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (2, '半袖シャツ（赤）', 'レッドの半袖のシャツです。', 1200, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (3, '半袖シャツ（橙）', 'オレンジの半袖のシャツです。', 1300, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (4, '半袖シャツ（黄）', 'イエローの半袖のシャツです。', 1400, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (5, '半袖シャツ（緑）', 'グリーンの半袖のシャツです。', 1500, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (6, '半袖シャツ（青）', 'ブルーの半袖のシャツです。', 1600, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (7, '半袖シャツ（桃）', 'ピンクの半袖のシャツです。', 1700, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (8, '半袖シャツ（灰）', 'グレーの半袖のシャツです。', 1800, 10, 1, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (9, '長袖シャツ（白）', 'ホワイトの長袖のシャツです。', 2100, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (10, '長袖シャツ（赤）', 'レッドの長袖のシャツです。', 2200, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (11, '長袖シャツ（橙）', 'オレンジの長袖のシャツです。', 2300, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (12, '長袖シャツ（黄）', 'イエローの長袖のシャツです。', 2400, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (13, '長袖シャツ（緑）', 'グリーンの長袖のシャツです。', 2500, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (14, '長袖シャツ（青）', 'ブルーの長袖のシャツです。', 2600, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (15, '長袖シャツ（桃）', 'ピンクの長袖のシャツです。', 2700, 10, 2, 0);
+INSERT INTO item (item_id, item_name, item_exp, item_price, item_stock, category_id, stop_flg) VALUES (16, '長袖シャツ（灰）', 'グレーの長袖のシャツです。', 2800, 10, 2, 0);
 
 -- カテゴリデータ
 INSERT INTO category (category_id, category_name) VALUES (1, '夏用');
