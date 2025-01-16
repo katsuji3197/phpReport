@@ -1,69 +1,97 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
-<head>
-  <meta charset="utf-8">
-  <link href="../common/css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="../common/css/main.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-  <h1>商品詳細</h1>
-	<?php if($loginOk === true){ ?>
-	<div>ようこそ！ <?= $userName ?> 様</div>
-	<?php } ?>
+  <head>
+    <meta charset="utf-8" />
+    <link href="../common/css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="../common/css/main.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <div class="fixed w-full top-0 z-50">
+      <div class="w-full bg-neutral-100 py-4 px-4 flex justify-between items-center shadow-md">
+        <a href="index.php" class="hover:opacity-70 duration-300 flex flex-col items-center">
+          <img src="../photo/logo.png" class="h-12"/>
+          <p class="text-xs">器具専門</p>
+        </a>
+        <div class="flex gap-4 items-center">
+          <?php if($loginOk === true){ ?>
+          <div class="text-end">
+            ようこそ！ <?= $userName ?> 様
+          </div>
+          <?php } ?>
 
-	<?php if ($loginOk === true){ ?>
-	<div>
-		<a href="cart.php">カート（<?= $cartCnt; ?>件）</a> | 
-		<a href="logout.php">ログアウト</a>
-	</div>
-	<?php } else { ?>
-	<div>
-		<a href="login.php">ログイン</a>
-	</div>
-	<?php } ?>
+          <?php if ($loginOk === true){ ?>
+          <div class="flex items-center gap-4">
+            <div class="bg-neutral-800 hover:bg-neutral-500 duration-300 rounded-lg h-8 flex items-center">
+              <a href="logout.php" class="text-white px-6">ログアウト</a>
+            </div>
+            <?php if ($isAdmin === true){ ?>
+            <div class="bg-neutral-800 hover:bg-neutral-500 duration-300 rounded-lg h-8 flex items-center">
+              <a href="adm_menu.php" class="text-white px-6">管理画面</a>
+            </div>
+            <?php } ?>
+          </div>
+          <?php } else { ?>
+          <div class="flex items-center gap-6 px-8">
+            <div class="bg-neutral-800 hover:bg-neutral-500 duration-300 rounded-lg h-8 flex items-center">
+              <a href="login.php" class="text-white px-6">ログイン</a>
+            </div>
+            <div class="hover:opacity-70 duration-300">
+              <a href="entry.php">新規登録</a>
+            </div>
+          </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
 
-	<h2><?= $arrItem["item_name"] ?></h2>
-	<table>
-		<tr>
-			<td>
-				<img src="../photo/<?= $arrItem['item_id']; ?>.jpg" style="width:140px;">
-			</td>
-			<td>
-				<div style="color:red;"><?= number_format($arrItem["item_price"]) ?>円</div>
-				<div>残り：<?= $arrItem["item_stock"] ?></div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<?= $arrItem["category_name"] ?>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<?= $arrItem["item_exp"] ?>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-			<form action="?item_id=<?= $arrItem['item_id'] ?>" method="post">
-				数量：
-				<select name="item_num">
-				<?php for ($i = 1; $i < $arrItem['item_stock']; $i++){ ?>
-				<option value="<?= $i ?>"><?= $i ?></option>
-				<?php } ?>
-				</select>
-				<input type="submit" value="カートへ入れる">
-			</form>
-			<?php if (!empty($resultMsg)) { ?>
-				<p style="color:red"><?= $resultMsg ?></p>
-				<?php } ?>
-			</td>
-		</tr>
-	</table>
-	<br />
-	<br />
-	<div>
-		<a href="index.php">トップページへ戻る</a>
-	</div>
-</body>
+    <?php if ($loginOk === true){ ?>
+    <div class="fixed top-20 right-4 z-50">
+      <div class="bg-neutral-800 hover:opacity-70 py-2 px-4 rounded-md duration-300">
+        <a href="cart.php" class="text-white flex items-center gap-2">
+          <p>カート</p>
+          <p class="w-6 h-6 bg-red-600 text-white rounded-full text-center text-xs flex items-center justify-center">
+            <?php print $cartCnt; ?>
+          </p>
+        </a>
+      </div>
+    </div>
+    <?php } ?>
+    <div class="container mx-auto py-24 flex flex-col items-start justify-center h-screen">
+      <div class="pb-8">
+        <a href="index.php" class="text-blue-500 hover:underline">トップページへ戻る</a>
+      </div>
+      <h1 class="text-md font-bold my-4 text-neutral-600">商品詳細</h1>
+
+      <div class="w-full bg-white shadow-md rounded-lg overflow-hidden flex items-center">
+        <div class="p-4 xl:w-2/5 w-full">
+          <img src="../photo/<?= $arrItem['item_id']; ?>.jpg" class="w-96 h-96 object-contain" />
+        </div>
+        <div class="flex">
+          <div class="p-4 flex flex-col gap-4">
+            <h2 class="text-xl font-semibold mb-4"><?= $arrItem["item_name"] ?></h2>
+            <p>カテゴリ：<?= $arrItem["category_name"] ?></p>
+            <p class="mt-4"><?= $arrItem["item_exp"] ?></p>
+            <div class="text-red-500 text-2xl font-bold mt-4">
+              <?= number_format($arrItem["item_price"]) ?>円(税抜)
+            </div>
+            <?php if ($loginOk === true){ ?>
+            <form action="?item_id=<?= $arrItem['item_id'] ?>" method="post" class="flex items-center mt-4">
+              <label for="item_num" class="mr-2">数量：</label>
+              <select name="item_num" id="item_num" class="border border-gray-300 rounded p-1 mr-2">
+              <?php for ($i = 1; $i < $arrItem['item_stock']; $i++){ ?>
+              <option value="<?= $i ?>"><?= $i ?></option>
+              <?php } ?>
+              </select>
+              <input type="submit" value="カートへ入れる" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" />
+            </form>
+            <?php } ?>
+            <?php if (!empty($resultMsg)) { ?>
+            <p class="text-red-500 mt-2"><?= $resultMsg ?></p>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

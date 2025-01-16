@@ -36,21 +36,29 @@
     if($loginOk === true){
         $userId   = getUserId($sLoginId, $sLoginPass);
         $userName = getUserName($sLoginId, $sLoginPass);
-    }
-    //ログインチェックがNGならログイン画面へ
-    else {
-        header("location: login.php");
-        exit();
+        $isAdmin  = isAdmin($sLoginId, $sLoginPass); // 管理者かどうかを判断
     }
 
 //**************************************************
 // 数量変更処理
 //**************************************************
-    //メッセージ用の変数
-    $resultMsg = "";
+//メッセージ用の変数
+$resultMsg = "";
 
-    //数量変更（商品IDがあるとき）
-    if($nItemId != ""){
+//数量変更（商品IDがあるとき）
+if($nItemId != ""){
+    if (isset($_POST['action']) && $_POST['action'] == 'delete') {
+        // カートから削除処理
+        $result = changeCart($nItemId, 0, $userId);
+
+        //メッセージ
+        if($result === true){
+            $resultMsg = "商品を削除しました。";
+        }
+        else {
+            $resultMsg = "商品を削除できませんでした。";
+        }
+    } else {
         //カートへ追加処理
         $result = changeCart($nItemId, $nItemNum, $userId);
 
@@ -62,6 +70,7 @@
             $resultMsg = "数量を変更できませんでした。";
         }
     }
+}
 
 //**************************************************
 // 検索処理
