@@ -15,7 +15,10 @@
   <?php if ($isAdmin === true && $loginOk === true) { ?>
   <div class="fixed w-full top-0 z-50">
     <div class="w-full bg-neutral-100 py-4 px-4 flex justify-between items-center shadow-md">
-      <p class="text-neutral-700 text-xl">ショップ名</p>
+      <a href="index.php" class="hover:opacity-70 duration-300 flex flex-col items-center">
+        <img src="../photo/logo.png" class="h-12"/>
+        <p class="text-xs">器具専門</p>
+      </a>
       <div class="flex gap-4 items-center">
         <div class="text-end">ようこそ！ <?= $userName ?> 様</div>
         <div class="flex items-center gap-4">
