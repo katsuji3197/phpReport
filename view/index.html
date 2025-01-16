@@ -7,7 +7,10 @@
 <body>
   <div class="fixed w-full top-0 z-50">
     <div class="w-full bg-neutral-100 py-4 px-4 flex justify-between items-center shadow-md">
-      <p class="text-neutral-700 text-xl">ショップ名</p>
+      <a href="index.php" class="hover:opacity-70 duration-300 flex flex-col items-center">
+        <img src="../photo/logo.png" class="h-12"/>
+        <p class="text-xs">器具専門</p>
+      </a>
       <div class="flex gap-4 items-center">
         <?php if($loginOk === true){ ?>
         <div class="text-end">ようこそ！ <?= $userName ?> 様</div>
@@ -38,7 +41,7 @@
     </div>
   </div>
 
-  <div class="py-4 px-4 flex justify-center items-center fixed top-16 left-2 z-50">
+  <div class="py-4 px-4 flex justify-center items-center fixed top-24 left-2 z-50">
     <div class="bg-neutral-50 py-2 px-5 rounded-lg shadow-md flex items-center">
       <form action="index.php" method="post" class="flex items-center gap-4">
         <div class="flex items-center">
@@ -64,7 +67,7 @@
   </div>
 
   <?php if ($loginOk === true){ ?>
-    <div class="fixed top-20 right-4 z-50">
+    <div class="fixed top-28 right-4 z-50">
       <div class="bg-neutral-800 hover:opacity-70 py-2 px-4 rounded-md duration-300">
         <a href="cart.php" class="text-white flex items-center gap-2">
           <p>カート</p>
@@ -74,8 +77,8 @@
   </div>
   <?php } ?>
 
-  <div class="pt-64 pb-32 bg-neutral-200">
-    <h2 class="text-2xl w-full text-center">商品一覧</h2>
+  <div class="pt-64 pb-32 bg-neutral-200 min-h-screen">
+    <h2 class="text-2xl w-full text-center font-bold py-4">商品一覧</h2>
     <div class="w-full flex justify-center">
     <div class="flex flex-wrap justify-center">
       <?php foreach ($arrItem as $data){ ?>
@@ -118,6 +121,13 @@
     </div>
   </div>
 </div>
+
+<a href="help.php" class="fixed bottom-4 right-4 bg-neutral-800 text-white p-4 rounded-md hover:opacity-70 duration-300">
+  <div class="flex items-center gap-4">
+    <p class="rounded-full h-8 w-8 border-[2px] border-neutral-400 font-bold text-center flex justify-center">?</p>
+    <p class="font-semibold pr-2">ヘルプ</p>
+  </div>
+</a>
 	
 </body>
 </html>
