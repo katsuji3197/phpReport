@@ -1,0 +1,4 @@
+# 秘密情報を含む環境ファイル。雛形の .env.example だけを追跡する。
+.env
+.env.*
+!.env.example

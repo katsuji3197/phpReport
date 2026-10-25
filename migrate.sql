@@ -41,6 +41,7 @@ CREATE TABLE category (
 );
 
 -- 会員データ挿入
+-- login_pass はリポジトリに置かない。空のまま投入し、使う会員のパスワードはローカルのデータベース上だけで設定する。
 INSERT INTO `webapp09` (`id`, `last_name`, `first_name`, `login_id`, `login_pass`, `age`) VALUES
 (1, '田中', '一郎', 'tanaka',  '', 20),
 (2, '山田', '二郎', 'yamada',  '', 18),
