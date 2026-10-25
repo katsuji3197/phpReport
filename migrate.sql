@@ -41,12 +41,13 @@ CREATE TABLE category (
 );
 
 -- 会員データ挿入
+-- login_pass はリポジトリに置かない。空のまま投入し、使う会員のパスワードはローカルのデータベース上だけで設定する。
 INSERT INTO `webapp09` (`id`, `last_name`, `first_name`, `login_id`, `login_pass`, `age`) VALUES
-(1, '田中', '一郎', 'tanaka',  '1111', 20),
-(2, '山田', '二郎', 'yamada',  '2222', 18),
-(3, '林',   '三郎', 'hayashi', '3333', 35),
-(4, '鈴木', '四郎', 'suzuki',  '4444', 15),
-(5, '佐藤', '五郎', 'sato',    '5555', 28);
+(1, '田中', '一郎', 'tanaka',  '', 20),
+(2, '山田', '二郎', 'yamada',  '', 18),
+(3, '林',   '三郎', 'hayashi', '', 35),
+(4, '鈴木', '四郎', 'suzuki',  '', 15),
+(5, '佐藤', '五郎', 'sato',    '', 28);
 
 -- 商品データ
 INSERT INTO item (item_id, item_name, perform_date, perform_timeitem_exp, seat, item_price, item_stock, category_id) VALUES (1, '半袖シャツ（白）','2025年2月25日','10:00 ~ 15:00','A列2席' 'ホワイトの半袖のシャツです。', 1100, 10, 1);
